@@ -9,10 +9,14 @@ public class GameManager : MonoBehaviour {
 	public bool frozen = true;
 	public List<FunctionBullet> loot;
 	public UnityEngine.UI.Button startGameButton;
-	public FunctionBullet[] inventory;  
+	public FunctionBullet[] inventory;
+	public GameObject alpha;
+	private int daysWon;
 	
 	// Use this for initialization
 	void Start () {
+		BattleFieldManager.calculateSize(GetComponent<Camera>());
+		daysWon = 0;
 		gameState = TITLE;
 		startGameButton.onClick.AddListener(EnterTown);
 		inventory = new FunctionBullet[24];
@@ -30,16 +34,19 @@ public class GameManager : MonoBehaviour {
 			}else{
 				inventory[i] = new FunctionBullet(FunctionBullet.DO_NOTHING);
 			}
-		} 
+		}
+		Instantiate(alpha, new Vector3(BattleFieldManager.getBattlefieldHeight() / 2, BattleFieldManager.getBattlefieldHeight() / 2, 0f), new Quaternion());
 	}
 
 	public void BattleWon(){
 		gameState = NIGHT;
+		daysWon++;
 	}
 
 	public void EnterTown(){
 		gameState = DAY;
 		startGameButton.gameObject.SetActive(false);
+		BattleFieldManager.generateMap(daysWon);
 	}
 
 	public void GameOver(){
@@ -50,11 +57,6 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		switch(gameState){
 			case DAY:
-				if(frozen){
-
-				}else{
-
-				}
 				break;
 			case NIGHT:
 				//MergeManager.merge(loot);

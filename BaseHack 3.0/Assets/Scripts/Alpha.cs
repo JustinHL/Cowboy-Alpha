@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Alpha : Avatar {
 	FunctionBullet currentAction;
-	double timeTaken;
-	double totalTime;
+	float timeTaken;
+	float totalTime;
 
-	public abstract void ExecuteFunctionBullet(FunctionBullet action, double time){
+	public override void ExecuteFunctionBullet(FunctionBullet action, float time){
 		currentAction = action;
 		timeTaken = 0;
 		totalTime = time;
@@ -16,10 +16,15 @@ public class Alpha : Avatar {
 	void Update () {
 		if(currentAction != null){
 			if(currentAction.GetCode() == FunctionBullet.ROLL_FORWARD){
-				double rollLength = BattleFieldManager.getBattlefieldWidth() / 4;
-				
+				float rollLength = (float)BattleFieldManager.getBattlefieldWidth() / 4;
+				transform.Translate(rollLength / totalTime * Time.deltaTime * Mathf.Cos(direction), rollLength / totalTime * Time.deltaTime * Mathf.Sin(direction), 0f);
 			}else if(currentAction.GetCode() == FunctionBullet.ROLL_BACKWARD){
-
+				float rollLength = (float)BattleFieldManager.getBattlefieldWidth() / 4;
+				transform.Translate(-rollLength / totalTime * Time.deltaTime * Mathf.Cos(direction), -rollLength / totalTime * Time.deltaTime * Mathf.Sin(direction), 0f);
+			}
+			timeTaken += Time.deltaTime;
+			if(Time.deltaTime > totalTime){
+				currentAction = null;
 			}
 		}
 	}
