@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Avatar : MonoBehaviour {
 	private double timer = 0;
-	protected double direction = 0;
+	protected float direction = 0;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,19 +16,19 @@ public abstract class Avatar : MonoBehaviour {
 	}
 
 	public void DeliverAction(List<FunctionBullet> actionStack){
-		double timePerAction = 2 / actionStack.Count;
+		float timePerAction = 2f / actionStack.Count;
 		while(true){
 			if(timer == 0){
 				if(actionStack.Count == 0){
 					break;
 				}else{
-					ExecuteFunctionBullet(actionStack[0]);
+					ExecuteFunctionBullet(actionStack[0], timePerAction);
 				}
-			}
+			}  
 			timer += Time.deltaTime;
 			if(timer > timePerAction)timer = 0;
 		}
 	}
 
-	public abstract void ExecuteFunctionBullet(FunctionBullet action, double time);
+	abstract public void ExecuteFunctionBullet(FunctionBullet action, float time);
 }

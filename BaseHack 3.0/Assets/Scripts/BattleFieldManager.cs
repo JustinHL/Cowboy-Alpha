@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BattleFieldManager : MonoBehaviour {
 
-	private static double battlefieldWidth;
-	private static double battlefieldHeight;
+	private static float battlefieldWidth;
+	private static float battlefieldHeight;
 	public List<GameObject> battlefieldObjects;
 	public List<Enemy> enemies;
 	public List<Loot> dropedLoots;
@@ -15,16 +15,20 @@ public class BattleFieldManager : MonoBehaviour {
 
 	}
 
-	public static void calculateSize(){
-		battlefieldHeight = GetComponent<Camera>().pixelHeight;
+	public static void generateMap(double difficulty){
+
+	}
+
+	public static void calculateSize(Camera cam){
+		battlefieldHeight = cam.pixelHeight;
 		battlefieldWidth = battlefieldHeight;
 	}
 
-	public static double getBattlefieldWidth(){
+	public static float getBattlefieldWidth(){
 		return battlefieldWidth;
 	}
 
-	public static double getBattlefieldHeight(){
+	public static float getBattlefieldHeight(){
 		return battlefieldHeight;
 	}
 	// Update is called once per frame
