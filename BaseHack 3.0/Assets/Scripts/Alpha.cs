@@ -16,11 +16,11 @@ public class Alpha : Avatar {
 			
 			if(currentAction.GetFunction().GetCode() == FunctionBullet.ROLL_FORWARD){
 				anim.SetBool("dashF", true);
-				float rollLength = 8f;
+				float rollLength = 200f;
 				transform.position += new Vector3(rollLength / timePerAction * Time.deltaTime * Mathf.Cos(direction), rollLength / timePerAction * Time.deltaTime * Mathf.Sin(direction), 0f);
 			}else if(currentAction.GetFunction().GetCode() == FunctionBullet.ROLL_BACKWARD){
 				anim.SetBool("dashB", true);
-				float rollLength = 8f;
+				float rollLength = 200f;
 				transform.position -= new Vector3(rollLength / timePerAction * Time.deltaTime * Mathf.Cos(direction), rollLength / timePerAction * Time.deltaTime * Mathf.Sin(direction), 0f);
 			}else if(currentAction.GetFunction().GetCode() == FunctionBullet.TURN_TO_NEAREST_ENEMY){
 				anim.SetBool("Walking", true);
@@ -41,16 +41,24 @@ public class Alpha : Avatar {
 					GameObject bullet = new GameObject("bullet");
 					bullet.AddComponent<BulletManager>();
 					bullet.GetComponent<BulletManager>().init(direction, 10, gameObject);
+					Instantiate(bullet, transform.position, new Quaternion());
 					fired = true;
 				}
 			}else{
 				fired = false;
-				anim.SetBool("Walking", true);
+				anim.SetBool("dashF", false);
+				anim.SetBool("dashB", false);
+				anim.SetBool("Walking", false);
 			}
 			timeTaken += Time.deltaTime;
 			if(timeTaken > timePerAction){
 				currentAction = null;
 			}
+		}else{
+			Debug.Log("w");
+			anim.SetBool("dashF", false);
+			anim.SetBool("dashB", false);
+			anim.SetBool("Walking", false);
 		}
 	}
 

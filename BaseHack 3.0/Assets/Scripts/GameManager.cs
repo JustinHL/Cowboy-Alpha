@@ -10,10 +10,13 @@ public class GameManager : MonoBehaviour {
 	public List<FunctionBullet> loot;
 	public UnityEngine.UI.Button startGameButton;
 	public UnityEngine.UI.Button runButton;
+	public Image title;
 	public FunctionBullet[] inventory;
 	public FunctionBullet[] currentHand;
 	public List<FunctionBullet> currentDeck;
 	public GameObject alpha;
+	public GameObject drag;
+	public GameObject[] functionUI;
 	private int daysWon;
 	
 	// Use this for initialization
@@ -26,11 +29,9 @@ public class GameManager : MonoBehaviour {
 		runButton.gameObject.SetActive(false);
 		inventory = new FunctionBullet[24];
 		for(int i = 0; i < 24; i++){
-			/*
 			if(i < 6){
 				inventory[i] = new FunctionBullet(FunctionBullet.FIRE);
-			}else
-			*/ if(i < 8){
+			}else if(i < 8){
 				inventory[i] = new FunctionBullet(FunctionBullet.ROLL_FORWARD); 
 			}else if(i < 10){
 				inventory[i] = new FunctionBullet(FunctionBullet.ROLL_BACKWARD); 
@@ -43,7 +44,8 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		currentHand = new FunctionBullet[6];
-		alpha = Instantiate(alpha, new Vector3(-2, 0, 0f), new Quaternion());
+		functionUI = new GameObject[6];
+		alpha = Instantiate(alpha, new Vector3(100, 100, 0f), new Quaternion());
 	}
 
 	public void BattleWon(){
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour {
 
 	public void EnterTown(){
 		gameState = DAY;
+		title.gameObject.SetActive(false);
 		startGameButton.gameObject.SetActive(false);
 		runButton.gameObject.SetActive(true);
 		BattleFieldManager.generateMap(daysWon);
@@ -60,7 +63,9 @@ public class GameManager : MonoBehaviour {
 		for(int i = 0; i < 6; i++){
 			 int randomCard = (int)UnityEngine.Random.Range(0, currentDeck.Count);
 			 currentHand[i] = currentDeck[randomCard];
-			 currentDeck.RemoveAt(randomCard); 
+			 currentDeck.RemoveAt(randomCard);
+			 functionUI[i] = Instantiate(drag, new Vector3(600, 380 - i * 50, 0f), new Quaternion());
+			 functionUI[i].GetComponent<DragableFunction>().init(i, currentHand[i]);
 		}
 
 	}

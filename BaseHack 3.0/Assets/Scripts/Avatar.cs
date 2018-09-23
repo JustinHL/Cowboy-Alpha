@@ -22,6 +22,8 @@ public abstract class Avatar : MonoBehaviour {
 				currentStack.RemoveAt(0);
 				if(currentStack.Count == 0){
 					processing = false;
+					currentAction = null;
+					Debug.Log("a");
 				}else{	
 					currentAction = currentStack[0];
 					timePerAction = currentAction.getTime();
@@ -33,15 +35,15 @@ public abstract class Avatar : MonoBehaviour {
 				timer = 0;
 			}
 		}
-		if(transform.position.x > 2){
-			transform.position = new Vector3(2, transform.position.y, 0f);
-		}else if(transform.position.x < -7){
-			transform.position = new Vector3(-7, transform.position.y, 0f);;
+		if(transform.position.x < 0){
+			transform.position = new Vector3(0, transform.position.y, 0f);
+		}else if(transform.position.x > 300){
+			transform.position = new Vector3(300, transform.position.y, 0f);;
 		}
-		if(transform.position.y < -5){
-			transform.position = new Vector3(transform.position.x, -5, 0f);
-		}else if(transform.position.y > 5){
-			transform.position = new Vector3(transform.position.x, 5, 0f);
+		if(transform.position.y < 0){
+			transform.position = new Vector3(transform.position.x, 0, 0f);
+		}else if(transform.position.y > 200){
+			transform.position = new Vector3(transform.position.x, 200, 0f);
 		}
 	}
 

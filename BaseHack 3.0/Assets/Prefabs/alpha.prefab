@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4599962449653360}
   - component: {fileID: 212008371103158058}
+  - component: {fileID: 114971094374488488}
   - component: {fileID: 95339893565846362}
   m_Layer: 0
   m_Name: alpha
@@ -35,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1683694178202446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 10, y: 10, z: 0}
+  m_LocalScale: {x: 70, y: 70, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,6 +60,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114971094374488488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1683694178202446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6d742b53e8f7b1499963388d27b80a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  processing: 0
+  anim: {fileID: 0}
+  bullet: {fileID: 0}
 --- !u!212 &212008371103158058
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -91,8 +106,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1132095919
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300020, guid: bd0a42b2f96b0416b9617bfb51a22825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

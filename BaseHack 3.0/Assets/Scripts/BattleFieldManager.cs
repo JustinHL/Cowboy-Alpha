@@ -15,7 +15,8 @@ public class BattleFieldManager : MonoBehaviour {
 	}
 
 	public static void generateMap(double difficulty){
-
+		enemies = new List<GameObject>();
+		dropedLoots = new List<GameObject>();
 	}
 
 	public static void calculateSize(Camera cam){
