@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ACtionProecssor : MonoBehaviour {
+public class ActionProcessor : MonoBehaviour {
 
-	public static List<FunctionBullet> processFunction(FunctionBullet function){
-		List<FunctionBullet> retVal = new List<FunctionBullet>();
+	public static List<Action> processFunction(FunctionBullet function, float time){
+
+		List<Action> retVal = new List<Action>();
+		function.GetCode();
+		Debug.Log("we have the function");
 		if(function.GetCode() == FunctionBullet.MERGED){
 			foreach(FunctionBullet bullet in function.GetFunctionBullets()){
-				retVal.AddRange(processFunction(bullet));
+				retVal.AddRange(processFunction(bullet, time/function.GetFunctionBullets().Length));
 			}
 		}else{
-			retVal.Add(new FunctionBullet(function.GetCode()));
+			retVal.Add(new Action(time, function));
 		}
 		return retVal;
 	}

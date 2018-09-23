@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Action : MonoBehaviour {
+public class Action{
+	float time;
+	FunctionBullet function;
 	
-	public Action(byte FunctionType){
-		
+	public Action(float time, FunctionBullet function){
+		this.time = time;
+		this.function = function;
 	}
-	
-	// Use this for initialization
-	void Start () {
-		
+
+	public float getTime(){
+		return time;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public FunctionBullet GetFunction(){
+		return function;
 	}
 }
