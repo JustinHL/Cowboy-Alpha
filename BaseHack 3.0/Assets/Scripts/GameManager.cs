@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 		gameState = TITLE;
 		startGameButton.onClick.AddListener(EnterTown);
 		runButton.onClick.AddListener(runCode);
+		runButton.gameObject.SetActive(false);
 		inventory = new FunctionBullet[24];
 		for(int i = 0; i < 24; i++){
 			/*
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour {
 	public void EnterTown(){
 		gameState = DAY;
 		startGameButton.gameObject.SetActive(false);
+		runButton.gameObject.SetActive(true);
 		BattleFieldManager.generateMap(daysWon);
 		currentDeck = new List<FunctionBullet>(inventory);
 		for(int i = 0; i < 6; i++){
@@ -72,8 +74,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void runCode(){
-
-		Debug.Log(alpha);
 		alpha.GetComponent<Alpha>().currentStack = new List<Action>();
 		for(int i = 0; i < 6; i++){
 			alpha.GetComponent<Alpha>().currentStack.AddRange(ActionProcessor.processFunction(currentHand[i], 2f/6));
