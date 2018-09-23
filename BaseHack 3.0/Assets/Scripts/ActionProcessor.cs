@@ -8,7 +8,6 @@ public class ActionProcessor : MonoBehaviour {
 
 		List<Action> retVal = new List<Action>();
 		function.GetCode();
-		Debug.Log("we have the function");
 		if(function.GetCode() == FunctionBullet.MERGED){
 			foreach(FunctionBullet bullet in function.GetFunctionBullets()){
 				retVal.AddRange(processFunction(bullet, time/function.GetFunctionBullets().Length));
