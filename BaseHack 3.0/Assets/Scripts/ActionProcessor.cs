@@ -2,26 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionProecssor : MonoBehaviour {
+public class ACtionProecssor : MonoBehaviour {
 
-	public static List<Action> processFunction(FunctionBullet function){
-		List<Action> retVal = new List<Action>();
+	public static List<FunctionBullet> processFunction(FunctionBullet function){
+		List<FunctionBullet> retVal = new List<FunctionBullet>();
 		if(function.GetCode() == FunctionBullet.MERGED){
 			foreach(FunctionBullet bullet in function.GetFunctionBullets()){
 				retVal.AddRange(processFunction(bullet));
 			}
 		}else{
-			retVal.Add(new Action(function.GetCode()));
+			retVal.Add(new FunctionBullet(function.GetCode()));
 		}
 		return retVal;
-	}
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }
