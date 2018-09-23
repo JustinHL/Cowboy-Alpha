@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour {
 	public bool frozen = true;
 	public List<FunctionBullet> loot;
 	public UnityEngine.UI.Button startGameButton;
+	public UnityEngine.UI.Button runButton;
 	public FunctionBullet[] inventory;
+	public FunctionBullet[] currentHand;
+	public List<FunctionBullet> currentDeck;
 	public GameObject alpha;
 	private int daysWon;
 	
@@ -19,11 +22,14 @@ public class GameManager : MonoBehaviour {
 		daysWon = 0;
 		gameState = TITLE;
 		startGameButton.onClick.AddListener(EnterTown);
+		runButton.onClick.AddListener(runCode);
 		inventory = new FunctionBullet[24];
 		for(int i = 0; i < 24; i++){
+			/*
 			if(i < 6){
 				inventory[i] = new FunctionBullet(FunctionBullet.FIRE);
-			}else if(i < 8){
+			}else
+			*/ if(i < 8){
 				inventory[i] = new FunctionBullet(FunctionBullet.ROLL_FORWARD); 
 			}else if(i < 10){
 				inventory[i] = new FunctionBullet(FunctionBullet.ROLL_BACKWARD); 
@@ -35,7 +41,8 @@ public class GameManager : MonoBehaviour {
 				inventory[i] = new FunctionBullet(FunctionBullet.DO_NOTHING);
 			}
 		}
-		Instantiate(alpha, new Vector3(BattleFieldManager.getBattlefieldHeight() / 2, BattleFieldManager.getBattlefieldHeight() / 2, 0f), new Quaternion());
+		currentHand = new FunctionBullet[6];
+		alpha = Instantiate(alpha, new Vector3(-2, 0, 0f), new Quaternion());
 	}
 
 	public void BattleWon(){
@@ -47,6 +54,13 @@ public class GameManager : MonoBehaviour {
 		gameState = DAY;
 		startGameButton.gameObject.SetActive(false);
 		BattleFieldManager.generateMap(daysWon);
+		currentDeck = new List<FunctionBullet>(inventory);
+		for(int i = 0; i < 6; i++){
+			 int randomCard = (int)UnityEngine.Random.Range(0, currentDeck.Count);
+			 currentHand[i] = currentDeck[randomCard];
+			 currentDeck.RemoveAt(randomCard); 
+		}
+
 	}
 
 	public void GameOver(){
@@ -55,15 +69,21 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		switch(gameState){
-			case DAY:
-				break;
-			case NIGHT:
-				//MergeManager.merge(loot);
-				break;
-			default:
-				break;
+	}
 
+	public void runCode(){
+
+		Debug.Log(alpha);
+		alpha.GetComponent<Alpha>().currentStack = new List<Action>();
+		for(int i = 0; i < 6; i++){
+			alpha.GetComponent<Alpha>().currentStack.AddRange(ActionProcessor.processFunction(currentHand[i], 2f/6));
+		}
+		alpha.GetComponent<Alpha>().processing = true;
+		if(currentDeck.Count == 0)currentDeck = new List<FunctionBullet>(inventory);
+		for(int i = 0; i < 6; i++){
+			 int randomCard = (int)UnityEngine.Random.Range(0, currentDeck.Count);
+			 currentHand[i] = currentDeck[randomCard];
+			 currentDeck.RemoveAt(randomCard); 
 		}
 	}
 }
